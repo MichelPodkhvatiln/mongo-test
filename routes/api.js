@@ -10,6 +10,7 @@ router.get('/ninjas', (req, res)=>{
 router.post('/ninjas', (req, res)=>{
   res.send({
     type: 'POST',
+    data: req.body
   })
 });
 
