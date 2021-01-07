@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Ninja = require('../models/ninja');
 
 router.get('/ninjas', (req, res)=>{
   res.send({
@@ -8,10 +9,9 @@ router.get('/ninjas', (req, res)=>{
 });
 
 router.post('/ninjas', (req, res)=>{
-  res.send({
-    type: 'POST',
-    data: req.body
-  })
+  Ninja.create(req.body).then((ninja) =>{
+    res.send(ninja)
+  });
 });
 
 router.put('/ninjas/:id', (req, res)=>{
