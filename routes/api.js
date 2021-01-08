@@ -8,10 +8,10 @@ router.get('/ninjas', (req, res)=>{
   })
 });
 
-router.post('/ninjas', (req, res)=>{
+router.post('/ninjas', (req, res, next)=>{
   Ninja.create(req.body).then((ninja) =>{
     res.send(ninja)
-  });
+  }).catch(next);
 });
 
 router.put('/ninjas/:id', (req, res)=>{

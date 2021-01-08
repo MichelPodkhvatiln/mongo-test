@@ -10,8 +10,18 @@ const app = express();
 mongoose.connect('mongodb://localhost/ninjago');
 mongoose.Promise = global.Promise;
 
+//bodyParser middleware
 app.use(bodyParser.json());
+//init routes
 app.use('/api', routes);
+//error handing middleware
+app.use((err, req, res, next)=>{
+  const errorMessage = {
+    error: err._message
+  };
+
+  res.status(422).send(errorMessage);
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
