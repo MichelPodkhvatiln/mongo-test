@@ -14,16 +14,22 @@ router.post('/ninjas', (req, res, next)=>{
   }).catch(next);
 });
 
-router.put('/ninjas/:id', (req, res)=>{
-  res.send({
-    type: 'PUT',
+router.put('/ninjas/:id', (req, res, next)=>{
+  const id = req.params.id;
+
+  Ninja.findByIdAndUpdate({_id: id}, req.body).then(()=>{
+    Ninja.findOne({_id: id}).then((ninja)=>{
+      res.send(ninja);
+    });
   })
 });
 
-router.delete('/ninjas/:id', (req, res)=>{
-  res.send({
-    type: 'DELETE',
-  })
+router.delete('/ninjas/:id', (req, res, next)=>{
+  const id = req.params.id;
+
+  Ninja.findByIdAndRemove({_id: id}).then((ninja)=>{
+    res.send(ninja);
+  });
 });
 
 
